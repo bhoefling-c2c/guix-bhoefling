@@ -1,0 +1,46 @@
+* My Personal Channel
+
+This is a Guix Channel for some personal packages that are not of interest
+for Guix or don't fit into Guix due to licencing issues.
+
+** License
+
+Licensed under the GNU GPL v3 or later, at your option. See COPYING.
+
+** Usage
+
+Add the channel to your *.config/guix/channels.scm* file, like:
+
+#+name: .config/guix/channels.scm
+#+begin_src scheme
+;; Set pin-commit either to a specific commit or use #f for master branch:
+(let* ((pin-commit #f) ; "4bc9a1f4e3bd39302b4ceaab8589a2e6ef82c4bd") ; #f
+       ;; normal guix channel on master branch:
+       (guix-master
+	(channel
+	 (name 'guix)
+	 (url "https://git.savannah.gnu.org/git/guix.git")
+	 (branch "master")))
+
+       ;; guix pnned ot a specific commit:
+       (guix-pinned
+	(channel
+	 (name 'guix)
+	 (url "https://git.savannah.gnu.org/git/guix.git")
+	 (commit pin-commit)))
+
+       ;; My personal channel:
+       (guix-bhoefling
+	(channel
+        (name 'guix-bhoefling)
+        (url "https://github.com/bhoefling-c2c/guix-bhoefling")
+	(branch "main")
+	(introduction
+	 (make-channel-introduction
+	  "29d6b258a1f46185a10a0386cf964e173faebdb8"
+	  (openpgp-fingerprint
+	   "9E6D 57C0 3ACE D804 DA59  73DB BC5C E91F 611B 147B"))))))
+  (if pin-commit
+      (list guix-pinned guix-bhoefling)
+      (list guix-master guix-bhoefling)))
+#+end_src
