@@ -1,0 +1,7 @@
+;; Example '.guix-authorizations' file.
+
+(authorizations
+ (version 0)               ;current file format version
+
+ (("9E6D 57C0 3ACE D804 DA59  73DB BC5C E91F 611B 147B"
+   (name "bhoefling"))))
